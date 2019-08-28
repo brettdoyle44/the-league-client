@@ -3,55 +3,50 @@ import SideNav, { NavItem, NavText, NavIcon } from '@trendmicro/react-sidenav'
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 // import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faPlusSquare, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faPlusSquare, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import AuthContext from '../../context/auth-context'
+import { Link } from 'react-router-dom'
 
-// const authenticatedOptions = (
-//   <Fragment>
-//     <Nav.Link href="#change-password">Change Password</Nav.Link>
-//     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
-//   </Fragment>
-// )
-//
-// const unauthenticatedOptions = (
-//   <Fragment>
-//     <Nav.Link href="#sign-up">Sign Up</Nav.Link>
-//     <Nav.Link href="#sign-in">Sign In</Nav.Link>
-//   </Fragment>
-// )
+const Sidebar = props => (
 
-// const alwaysOptions = (
-//   <Fragment>
-//     <Nav.Link to="/">Home</Nav.Link>
-//   </Fragment>
-// )
+  <AuthContext.Consumer>
+    {context => {
+      return (
+        <SideNav
+          onSelect={(selected) => {
+          }}>
+          <SideNav.Toggle/>
+          <SideNav.Nav defaultSelected="home">
+            <NavItem eventKey="home">
+              <NavIcon>
+                <Link to="/leagues"><FontAwesomeIcon icon={ faHome } style={{ fontSize: '1.75em' }} /></Link>
+              </NavIcon>
+              <NavText><Link to="/leagues">Home</Link></NavText>
+            </NavItem>
+            <NavItem eventKey="create-league">
+              <NavIcon>
+                <Link to="/create-league"><FontAwesomeIcon icon={ faPlusSquare } style={{ fontSize: '1.75em' }} /></Link>
+              </NavIcon>
+              <NavText><Link to="/create-league">Create a League</Link></NavText>
+            </NavItem>
+            <NavItem eventKey="join-league">
+              <NavIcon>
+                <FontAwesomeIcon icon={ faUser } style={{ fontSize: '1.75em' }} />
+              </NavIcon>
+              <NavText>My Created Leagues</NavText>
+            </NavItem>
 
-const Sidebar = ({ user }) => (
-  <SideNav
-    onSelect={(selected) => {
-      // Add your code here
-    }}>
-    <SideNav.Toggle />
-    <SideNav.Nav defaultSelected="home">
-      <NavItem eventKey="home">
-        <NavIcon>
-          <FontAwesomeIcon icon={ faHome } style={{ fontSize: '1.75em' }} />
-        </NavIcon>
-        <NavText>Home</NavText>
-      </NavItem>
-      <NavItem eventKey="create-league">
-        <NavIcon>
-          <FontAwesomeIcon icon={ faPlusSquare } style={{ fontSize: '1.75em' }} />
-        </NavIcon>
-        <NavText>Create a League</NavText>
-      </NavItem>
-      <NavItem eventKey="join-league">
-        <NavIcon>
-          <FontAwesomeIcon icon={ faUserPlus } style={{ fontSize: '1.75em' }} />
-        </NavIcon>
-        <NavText>Join a League</NavText>
-      </NavItem>
-    </SideNav.Nav>
-  </SideNav>
+            <NavItem onClick={context.logout} eventKey="logout">
+              <NavIcon>
+                <FontAwesomeIcon icon={ faSignOutAlt } style={{ fontSize: '1.75em' }} />
+              </NavIcon>
+              <NavText>Logout</NavText>
+            </NavItem>
+          </SideNav.Nav>
+        </SideNav>
+      )
+    }}
+  </AuthContext.Consumer>
 )
 
 export default Sidebar
