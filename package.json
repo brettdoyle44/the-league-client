@@ -4,6 +4,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@fortawesome/react-native-fontawesome": "^0.1.0",
+    "@trendmicro/react-sidenav": "^0.4.5",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
@@ -17,6 +22,7 @@
     "react": "^16.4.2",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.4.2",
+    "react-native-svg": "^9.7.1",
     "react-router-dom": "^4.3.1",
     "resolve": "1.6.0",
     "url-loader": "0.6.2"
