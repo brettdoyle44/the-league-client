@@ -31,9 +31,9 @@ const Sidebar = props => (
             </NavItem>
             <NavItem eventKey="join-league">
               <NavIcon>
-                <FontAwesomeIcon icon={ faUser } style={{ fontSize: '1.75em' }} />
+                <Link to="/my-leagues"><FontAwesomeIcon icon={ faUser } style={{ fontSize: '1.75em' }} /></Link>
               </NavIcon>
-              <NavText>My Created Leagues</NavText>
+              <NavText><Link to="/my-leagues">My Created Leagues</Link></NavText>
             </NavItem>
 
             <NavItem onClick={context.logout} eventKey="logout">

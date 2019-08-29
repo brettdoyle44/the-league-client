@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 
-class MyLeagues extends Component {
+class League extends Component {
   state = {
     leagues: [],
     deleted: null
@@ -16,8 +16,8 @@ class MyLeagues extends Component {
   async componentDidMount () {
     try {
       this.getLeagues()
-    } catch (err) {
-      console.error(err)
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -52,11 +52,12 @@ class MyLeagues extends Component {
       })
       .then(resData => {
         for (let i = 0; i < resData.data.leagues.length; i++) {
-          if (resData.data.leagues[i].leagueCreator._id === this.context.userID) {
+          if (resData.data.leagues[i]._id === this.props.match.params.id) {
             this.state.leagues.push(resData.data.leagues[i])
             // return this.setState({ leagues: resData.data.leagues[i] })
           }
         }
+        console.log(this.state.leagues)
         return this.state.leagues
       })
       .catch(err => {
@@ -74,11 +75,11 @@ class MyLeagues extends Component {
             <Card.Text>
               {league.description}
             </Card.Text>
-            <Button key={league._id} variant="primary"><Link to={`/league/${league._id}`}>Edit</Link></Button>
+            <Button currentleague={league._id} variant="primary"><Link to={`/league/${league._id}`}>Edit</Link></Button>
           </Card.Body>
         </Card>
       )
-    }).reverse()
+    })
     return (
       <React.Fragment>
         <Sidebar/>
@@ -89,4 +90,4 @@ class MyLeagues extends Component {
   }
 }
 
-export default MyLeagues
+export default League

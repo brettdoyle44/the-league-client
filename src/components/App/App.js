@@ -5,6 +5,7 @@ import LeaguesPage from '../Leagues/Leagues'
 import Sidebar from '../Sidebar/Sidebar'
 import CreateLeague from '../CreateLeague/CreateLeague'
 import MyLeagues from '../MyLeagues/MyLeagues'
+import League from '../League/League'
 import AuthContext from '../../context/auth-context'
 
 // import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
@@ -46,6 +47,7 @@ class App extends Component {
           <Switch>
             {this.state.token && <Redirect exact path="/" to="/leagues"/>}
             {!this.state.token && <Route path="/auth" component={AuthPage}/>}
+            {this.state.token && <Route exact path="/league/:id" component={League}/>}
             {this.state.token && <Redirect exact path="/auth" to="/leagues"/>}
             {this.state.token && <Route path="/create-league" component={CreateLeague}/>}
             <Route path="/sidebar" component={Sidebar}/>
