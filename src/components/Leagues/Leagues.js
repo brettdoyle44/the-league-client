@@ -1,51 +1,24 @@
 import React, { Component } from 'react'
-import Sidebar from '../Sidebar/Sidebar'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import apiUrl from '../../apiConfig'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
 class LeaguesPage extends Component {
   state = {
-    leagues: []
+    leagues: [],
+    isLoading: true
   }
 
-  componentDidMount () {
-    this.getLeagues()
-  }
-
-  getLeagues () {
-    const requestBody = {
-      query: `
-        query {
-          leagues {
-            name
-            description
-            game
-          }
-        }
-      `
+  async componentDidMount () {
+    try {
+      const response = await axios(`${apiUrl}/leagues`)
+      this.setState({ leagues: response.data.leagues, isLoading: false })
+    } catch (error) {
+      console.log(error)
     }
-    fetch('http://localhost:4741/graphql', {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => {
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error('Failed!')
-        }
-        return res.json()
-      })
-      .then(resData => {
-        const leagues = resData.data.leagues
-        this.setState({ leagues: leagues })
-      })
-      .catch(err => {
-        console.log(err)
-      })
   }
-
   render () {
     const leagueList = this.state.leagues.map(league => {
       return (
@@ -56,14 +29,13 @@ class LeaguesPage extends Component {
             <Card.Text>
               {league.description}
             </Card.Text>
-            <Button variant="primary">Learn More</Button>
+            <Link to={`/leagues/${league._id}`}><Button variant="primary">Learn More</Button></Link>
           </Card.Body>
         </Card>
       )
     }).reverse()
     return (
       <React.Fragment>
-        <Sidebar/>
         <h1>League Page</h1>
         {leagueList}
       </React.Fragment>

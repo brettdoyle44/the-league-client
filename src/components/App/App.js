@@ -1,61 +1,83 @@
 import React, { Component, Fragment } from 'react'
-import { Route, Redirect, Switch } from 'react-router-dom'
-import AuthPage from '../Auth/Auth'
-import LeaguesPage from '../Leagues/Leagues'
-import Sidebar from '../Sidebar/Sidebar'
-import CreateLeague from '../CreateLeague/CreateLeague'
-import MyLeagues from '../MyLeagues/MyLeagues'
-import League from '../League/League'
-import AuthContext from '../../context/auth-context'
+import { Route } from 'react-router-dom'
 
-// import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
-// import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
-// import Header from '../Header/Header'
-// import SignUp from '../SignUp/SignUp'
-// import SignIn from '../SignIn/SignIn'
-// import SignOut from '../SignOut/SignOut'
-// import ChangePassword from '../ChangePassword/ChangePassword'
+import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
+import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
+import Header from '../Header/Header'
+import SignUp from '../SignUp/SignUp'
+import SignIn from '../SignIn/SignIn'
+import SignOut from '../SignOut/SignOut'
+import ChangePassword from '../ChangePassword/ChangePassword'
+import CreateLeague from '../Leagues/CreateLeague'
+import LeagueEdit from '../Leagues/LeagueEdit'
+
+import Leagues from '../Leagues/Leagues'
+import League from '../Leagues/League'
 
 class App extends Component {
   constructor () {
     super()
 
     this.state = {
-      token: null,
-      userId: null,
+      user: null,
       alerts: []
     }
   }
 
-  login = (token, userId, tokenExpiration) => {
-    this.setState({ token: token, userId: userId })
-  }
+  setUser = user => this.setState({ user })
 
-  logout = () => {
-    this.setState({ token: null, userId: null })
+  clearUser = () => this.setState({ user: null })
+
+  alert = ({ heading, message, variant }) => {
+    this.setState({ alerts: [...this.state.alerts, { heading, message, variant }] })
   }
 
   render () {
+    const { alerts, user } = this.state
+
     return (
       <Fragment>
-        <AuthContext.Provider
-          value={{
-            token: this.state.token,
-            userID: this.state.userId,
-            login: this.login,
-            logout: this.logout }}>
-          <Switch>
-            {this.state.token && <Redirect exact path="/" to="/leagues"/>}
-            {!this.state.token && <Route path="/auth" component={AuthPage}/>}
-            {this.state.token && <Route exact path="/league/:id" component={League}/>}
-            {this.state.token && <Redirect exact path="/auth" to="/leagues"/>}
-            {this.state.token && <Route path="/create-league" component={CreateLeague}/>}
-            <Route path="/sidebar" component={Sidebar}/>
-            {this.state.token && <Route path="/leagues" component={LeaguesPage}/>}
-            {this.state.token && <Route path="/my-leagues" component={MyLeagues}/>}
-            {!this.state.token && <Redirect to="/auth"/>}
-          </Switch>
-        </AuthContext.Provider>
+        <Header user={user} />
+        {alerts.map((alert, index) => (
+          <AutoDismissAlert
+            key={index}
+            heading={alert.heading}
+            variant={alert.variant}
+            message={alert.message}
+          />
+        ))}
+        <main className="container">
+          <Route exact path='/leagues' component={Leagues}/>
+          <Route path='/sign-up' render={() => (
+            <SignUp alert={this.alert} setUser={this.setUser} />
+          )} />
+          <Route path='/sign-in' render={() => (
+            <SignIn alert={this.alert} setUser={this.setUser} />
+          )} />
+          <Route
+            exact path='/leagues/:id'
+            render={() => (
+              <League user={user} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path="/createleague"
+            render={() => (
+              <CreateLeague user={user} alert={this.alert} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path="/leagues/:id/edit"
+            render={() => (
+              <LeagueEdit user={user} alert={this.alert} />
+            )} />
+          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+            <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/change-password' render={() => (
+            <ChangePassword alert={this.alert} user={user} />
+          )} />
+        </main>
       </Fragment>
     )
   }
