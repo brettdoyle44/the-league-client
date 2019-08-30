@@ -47,6 +47,7 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          <Route exact path='/' component={Leagues}/>
           <Route exact path='/leagues' component={Leagues}/>
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
@@ -57,7 +58,7 @@ class App extends Component {
           <Route
             exact path='/leagues/:id'
             render={() => (
-              <League user={user} />
+              <League alert={this.alert} user={user} />
             )} />
           <AuthenticatedRoute
             user={user}
@@ -67,6 +68,7 @@ class App extends Component {
             )} />
           <AuthenticatedRoute
             user={user}
+            alert={this.alert}
             path="/leagues/:id/edit"
             render={() => (
               <LeagueEdit user={user} alert={this.alert} />

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import Button from 'react-bootstrap/Button'
+import messages from '../AutoDismissAlert/messages'
 
 class Book extends Component {
   state = {
@@ -27,12 +28,14 @@ class Book extends Component {
       url: `${apiUrl}/leagues/${this.state.league._id}`,
       headers: {
         'Authorization': `Token token=${this.props.user.token}`
-      },
-      data: {
-        league: this.state.league
       }
     })
-      .then(this.props.history.push('/leagues/'))
+      .then(() => this.props.alert({
+        heading: 'Delete Success',
+        message: messages.deleteSuccess,
+        variant: 'success'
+      }))
+      .then(this.props.history.push('/'))
       .catch(console.error)
   }
 

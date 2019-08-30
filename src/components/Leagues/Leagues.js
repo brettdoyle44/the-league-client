@@ -4,6 +4,9 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class LeaguesPage extends Component {
   state = {
@@ -35,10 +38,23 @@ class LeaguesPage extends Component {
       )
     }).reverse()
     return (
-      <React.Fragment>
-        <h1>League Page</h1>
-        {leagueList}
-      </React.Fragment>
+      <Container>
+        <Row className="mt-3">
+          <Col md={2}></Col>
+          <Col md={8} className="text-center"><h1>Welcome to The League</h1></Col>
+          <Col md={2}></Col>
+        </Row>
+        <Row>
+          <Col md={2}></Col>
+          <Col md={8} className="text-center"><h4>Checkout our Leauges Below</h4></Col>
+          <Col md={2}></Col>
+        </Row>
+        <Row>
+          <Col md={3}></Col>
+          <Col md={6}>{leagueList}</Col>
+          <Col md={3}></Col>
+        </Row>
+      </Container>
     )
   }
 }
