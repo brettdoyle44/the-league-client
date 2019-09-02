@@ -5,7 +5,7 @@ import apiUrl from '../../apiConfig'
 import Button from 'react-bootstrap/Button'
 import messages from '../AutoDismissAlert/messages'
 
-class Book extends Component {
+class League extends Component {
   state = {
     league: null
   }
@@ -35,7 +35,7 @@ class Book extends Component {
         message: messages.deleteSuccess,
         variant: 'success'
       }))
-      .then(this.props.history.push('/'))
+      .then(this.props.history.push('/deleted'))
       .catch(console.error)
   }
 
@@ -66,4 +66,4 @@ class Book extends Component {
   }
 }
 
-export default withRouter(Book)
+export default withRouter(League)

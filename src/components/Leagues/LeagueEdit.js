@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import LeagueForm from './LeagueForm'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 
 class LeagueEdit extends Component {
     state = {
-      league: null
+      league: null,
+      updated: false
     }
 
     componentDidMount () {
@@ -48,23 +49,30 @@ class LeagueEdit extends Component {
             message: 'You updated your league!',
             variant: 'success'
           })
-          this.props.history.push(`/leagues/${response.data.league.id}`)
         })
+        .then(res => this.setState({ updated: true }))
         .catch(console.error)
     }
 
     render () {
-      if (!this.state.league) {
-        return (
-          <h1>Loading..</h1>
+      const { league, updated } = this.state
+      let leagueJsx = ''
+      if (updated) {
+        return <Redirect to={`/leagues/${this.props.match.params.id}`}/>
+      } else if (league) {
+        leagueJsx = (
+          <LeagueForm
+            league={this.state.league}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
         )
       }
       return (
-        <LeagueForm
-          league={this.state.league}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <div>
+          <h4>MovieEdit Page</h4>
+          {leagueJsx}
+        </div>
       )
     }
 }

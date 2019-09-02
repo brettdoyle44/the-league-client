@@ -13,6 +13,7 @@ import LeagueEdit from '../Leagues/LeagueEdit'
 
 import Leagues from '../Leagues/Leagues'
 import League from '../Leagues/League'
+import Deleted from '../Leagues/Deleted'
 
 class App extends Component {
   constructor () {
@@ -60,6 +61,8 @@ class App extends Component {
             render={() => (
               <League alert={this.alert} user={user} />
             )} />
+          <Route
+            exact path='/deleted/' component={Deleted} />
           <AuthenticatedRoute
             user={user}
             path="/createleague"
