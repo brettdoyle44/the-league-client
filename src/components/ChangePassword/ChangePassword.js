@@ -50,7 +50,7 @@ class ChangePassword extends Component {
     return (
       <div className="row">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Change Password</h3>
+          <h3 style={{ color: '#ffffff' }}>Change Password</h3>
           <Form onSubmit={this.onChangePassword}>
             <Form.Group controlId="oldPassword">
               <Form.Label>Old password</Form.Label>
@@ -75,7 +75,7 @@ class ChangePassword extends Component {
               />
             </Form.Group>
             <Button
-              variant="primary"
+              className="btn btn-purple "
               type="submit"
             >
               Submit

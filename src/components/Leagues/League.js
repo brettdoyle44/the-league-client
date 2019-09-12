@@ -4,6 +4,7 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import Button from 'react-bootstrap/Button'
 import messages from '../AutoDismissAlert/messages'
+import Card from 'react-bootstrap/Card'
 
 class League extends Component {
   state = {
@@ -54,11 +55,18 @@ class League extends Component {
       <div>
         { league && (
           <Fragment>
-            <h1>{league.name}</h1>
-            <h4>{league.game}</h4>
-            <p>{league.description}</p>
-            {(this.props.user && league) && this.props.user._id === league.owner
-              ? <Fragment><Button href={`#leagues/${league._id}/edit`}>Update League</Button> <Button className="ml-3" onClick={this.sendDelete}>Delete League</Button></Fragment> : ''}
+            <Card style={{ border: 'solid 1px #69428c' }} className="text-center mt-4">
+              <Card.Header className="bg-gradient" style={{ color: '#ffffff' }}>{league.game}</Card.Header>
+              <Card.Body>
+                <Card.Title>{league.name}</Card.Title>
+                <Card.Text>
+                  {league.description}
+                </Card.Text>
+                {(this.props.user && league) && this.props.user._id === league.owner
+                  ? <Fragment><Button className="btn btn-purple" href={`#leagues/${league._id}/edit`}>Update League</Button> <Button className="ml-3 btn btn-purple" onClick={this.sendDelete}>Delete League</Button></Fragment> : ''}
+              </Card.Body>
+              <Card.Footer className="bg-gradient" style={{ color: '#ffffff' }}>{league.maxTeams} Teams</Card.Footer>
+            </Card>
           </Fragment>
         )}
       </div>

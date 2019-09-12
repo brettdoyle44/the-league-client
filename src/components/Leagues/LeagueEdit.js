@@ -70,7 +70,7 @@ class LeagueEdit extends Component {
       }
       return (
         <div>
-          <h4>MovieEdit Page</h4>
+          <h1 className="text-center mt-3" style={{ color: '#ffffff' }}>Edit Your League</h1>
           {leagueJsx}
         </div>
       )

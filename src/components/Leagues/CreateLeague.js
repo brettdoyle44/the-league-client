@@ -48,11 +48,14 @@ class CreateLeague extends Component {
   }
   render () {
     return (
-      <LeagueForm
-        league={this.state.league}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-      />
+      <React.Fragment>
+        <h1 className="text-center mt-3" style={{ color: '#ffffff' }}>Create a League</h1>
+        <LeagueForm
+          league={this.state.league}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </React.Fragment>
     )
   }
 }

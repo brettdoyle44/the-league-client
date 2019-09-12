@@ -14,6 +14,13 @@ import LeagueEdit from '../Leagues/LeagueEdit'
 import Leagues from '../Leagues/Leagues'
 import League from '../Leagues/League'
 import Deleted from '../Leagues/Deleted'
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: #1c212c;
+  }
+`
 
 class App extends Component {
   constructor () {
@@ -38,6 +45,7 @@ class App extends Component {
 
     return (
       <Fragment>
+        <GlobalStyle/>
         <Header user={user} />
         {alerts.map((alert, index) => (
           <AutoDismissAlert

@@ -1,1 +1,21 @@
 @import '~bootstrap/scss/bootstrap';
+
+.bg-gradient {
+  background: #5c258d;
+}
+
+.btn-purple {
+  background-color: #5c258d;
+  border: solid 1px #5c258d;
+}
+
+.btn-purple:hover {
+  background-color: #5c258d;
+  border: solid 1px #5c258d;
+  opacity: 0.7;
+}
+
+.bg-off-black {
+  background: #5c258d;
+  color: #fff;
+}
