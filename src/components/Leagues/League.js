@@ -55,18 +55,24 @@ class League extends Component {
       <div>
         { league && (
           <Fragment>
-            <Card style={{ border: 'solid 1px #69428c' }} className="text-center mt-4">
-              <Card.Header className="bg-gradient" style={{ color: '#ffffff' }}>{league.game}</Card.Header>
-              <Card.Body>
-                <Card.Title>{league.name}</Card.Title>
-                <Card.Text>
-                  {league.description}
-                </Card.Text>
-                {(this.props.user && league) && this.props.user._id === league.owner
-                  ? <Fragment><Button className="btn btn-purple" href={`#leagues/${league._id}/edit`}>Update League</Button> <Button className="ml-3 btn btn-purple" onClick={this.sendDelete}>Delete League</Button></Fragment> : ''}
-              </Card.Body>
-              <Card.Footer className="bg-gradient" style={{ color: '#ffffff' }}>{league.maxTeams} Teams</Card.Footer>
-            </Card>
+            <div className="container">
+              <div className="row">
+                <div className="col-6 mx-auto">
+                  <Card style={{ border: 'solid 1px #69428c' }} className="text-center mt-4">
+                    <Card.Header style={{ color: '#5c258d' }}><strong>{league.game}</strong></Card.Header>
+                    <Card.Body>
+                      <Card.Title>{league.name}</Card.Title>
+                      <Card.Text>
+                        {league.description}
+                      </Card.Text>
+                      {(this.props.user && league) && this.props.user._id === league.owner
+                        ? <Fragment><Button className="btn btn-purple" href={`#leagues/${league._id}/edit`}>Update League</Button> <Button className="ml-3 btn btn-purple" onClick={this.sendDelete}>Delete League</Button></Fragment> : ''}
+                    </Card.Body>
+                    <Card.Footer className="bg-gradient" style={{ color: '#ffffff' }}>{league.maxTeams} Teams</Card.Footer>
+                  </Card>
+                </div>
+              </div>
+            </div>
           </Fragment>
         )}
       </div>

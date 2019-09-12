@@ -25,7 +25,7 @@ class LeaguesPage extends Component {
   render () {
     const leagueList = this.state.leagues.map(league => {
       return (
-        <Col md={4} sm={6} xs={12} key={league._id}>
+        <Col className="mx-auto" md={4} sm={6} xs={12} key={league._id}>
           <Card className="mb-3" key={league._id} bg="light" text="dark" style={{ width: '18rem' }}>
             <Card.Header className="bg-gradient" style={{ color: '#ffffff' }}><strong>{league.game}</strong></Card.Header>
             <Card.Body>
